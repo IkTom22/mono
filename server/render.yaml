@@ -1,0 +1,18 @@
+databases:
+  - name: mentoring_project
+    databaseName: mentoring_project
+    user: mentoring_project
+
+services:
+  - type: web
+    name: mentoring_project
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mentoring_project
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false

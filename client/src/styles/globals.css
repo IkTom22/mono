@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+      @apply box-border m-0 p-0;
+    }
+    body{
+        font-family: 'Poppins', sans-serif;
+        @apply text-base-black
+    }
+    
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    @apply text-base-black
+}
+
+h1{
+    font-size: 34px;
+}
+.card:hover .card_link {
+    text-decoration: underline;
+}
+
+
