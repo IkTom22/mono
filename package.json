@@ -1,0 +1,13 @@
+{
+  "name": "mono",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "client": "yarn --cwd ./client dev",
+    "server": "cd ./server && rails server -p=3001",
+    "dev": "concurrently \"yarn client\" \"yarn server\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
