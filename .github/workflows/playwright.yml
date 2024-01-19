@@ -29,6 +29,7 @@ jobs:
         working-directory: './server'
     - name: Setup test database
       env:
+        CLIENT_URL: 'http://localhost:3000'
         RAILS_ENV: test
         PGHOST: localhost
         PGUSER: postgres
