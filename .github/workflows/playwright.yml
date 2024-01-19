@@ -26,6 +26,7 @@ jobs:
       with:
         ruby-version: '3.2.2' # Not needed with a .ruby-version file
         bundler-cache: true
+        working-directory: './server'
     - name: Setup test database
       env:
         RAILS_ENV: test
