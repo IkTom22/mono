@@ -32,7 +32,7 @@ jobs:
         PGHOST: localhost
         PGUSER: postgres
       run: |
-        bin/rails db:setup
+        cd server && bin/rails db:setup
     - name: Install dependencies
       run: npm install -g yarn && yarn   
     - name: Install Playwright Browsers
