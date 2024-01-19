@@ -106,7 +106,11 @@ jobs:
           yarn dev &
 
       - name: Wait for Next.js app to start
-        run: wait-for http://localhost:3000 --timeout=60 -- sleep 0
+        run: |
+          for i in {1..30}; do
+            curl -sI http://localhost:3000 | grep -q "HTTP/1.1 200 OK" && break
+            sleep 2
+          done
 
       - name: Install Playwright Browsers
         run: yarn playwright install --with-deps
