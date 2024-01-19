@@ -1,65 +1,58 @@
-# name: Playwright Tests
-# on:
-#   push:
-#     branches: [ main, master ]
-#   pull_request:
-#     branches: [ main, master ]
-# jobs:
-#   test:
-#     services:
-#       postgres:
-#         image: postgres:12.7
-#         env:
-#           POSTGRES_USER: myapp
-#           POSTGRES_DB: mentoring_project_server_test
-#           POSTGRES_PASSWORD: ""
-#           POSTGRES_HOST_AUTH_METHOD: "trust"
-#         ports: ["5432:5432"]
-#         # needed because the postgres container does not provide a healthcheck
-#         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-#     timeout-minutes: 60
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v3
-#     - uses: actions/setup-node@v3
-#       with:
-#         node-version: 18
-#     - name: Setup Ruby and install gems
-#       uses: ruby/setup-ruby@v1
-#       with:
-#         ruby-version: '3.2.2' # Not needed with a .ruby-version file
-#         bundler-cache: true
-#         working-directory: './server'
-#     - name: Setup test database
-#       env:
-#         CLIENT_URL: 'http://localhost:3000'
-#         RAILS_ENV: test
-#         PGHOST: localhost
-#         PGUSER: myapp
-#       run: |
-#         cd server && bin/rails db:setup
-#     - name: Install dependencies
-#       run: npm install -g yarn && yarn   
-#     - name: Install Playwright Browsers
-#       run: yarn playwright install --with-deps
-#     - name: Wait for server to start
-#       run: sleep 10
-#     - name: Run Playwright tests
-#       run: npx playwright test
-#     - uses: actions/upload-artifact@v3
-#       if: always()
-#       with:
-#         name: playwright-report
-#         path: playwright-report/
-#         retention-days: 30
 name: Playwright Tests
 on:
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   pull_request:
-    branches: [main, master]
-
+    branches: [ main, master ]
 jobs:
+  test:
+    services:
+      postgres:
+        image: postgres:12.7
+        env:
+          POSTGRES_USER: myapp
+          POSTGRES_DB: mentoring_project_server_test
+          POSTGRES_PASSWORD: ""
+          POSTGRES_HOST_AUTH_METHOD: "trust"
+        ports: ["5432:5432"]
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Setup Ruby and install gems
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2.2' # Not needed with a .ruby-version file
+        bundler-cache: true
+        working-directory: './server'
+    - name: Setup test database
+      env:
+        CLIENT_URL: 'http://localhost:3000'
+        RAILS_ENV: test
+        PGHOST: localhost
+        PGUSER: myapp
+      run: |
+        cd server && bin/rails db:setup
+    - name: Install dependencies
+      run: npm install -g yarn && yarn   
+    - name: Install Playwright Browsers
+      run: yarn playwright install --with-deps
+    - name: Wait for server to start
+      run: sleep 10
+    - name: Run Playwright tests
+      run: npx playwright test > playwright-test-output.txt 2>&1
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
+
   test:
     services:
       postgres:
