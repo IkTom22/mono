@@ -5,9 +5,13 @@
   "scripts": {
     "client": "yarn --cwd ./client dev",
     "server": "cd ./server && rails server -p=3001",
+    "e2e": "npx playwright test --ui",
     "dev": "concurrently \"yarn client\" \"yarn server\""
   },
-  "dependencies": {
-    "concurrently": "^8.2.2"
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@playwright/test": "^1.40.1",
+    "dotenv": "^16.3.1",
+    "@types/node": "^20"
   }
 }
