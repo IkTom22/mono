@@ -13,7 +13,10 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 18
-    - uses: setup-rails/setup-rails/.github/workflows/verify.yml@v1
+    - name: Setup Ruby and install gems
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
     - name: Install dependencies
       run: npm install -g yarn && yarn   
     - name: Install Playwright Browsers
