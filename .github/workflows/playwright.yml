@@ -10,7 +10,7 @@ jobs:
       postgres:
         image: postgres:12.7
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: myapp
           POSTGRES_DB: mentoring_project_server_test
           POSTGRES_PASSWORD: ""
         ports: ["5432:5432"]
@@ -34,7 +34,7 @@ jobs:
         CLIENT_URL: 'http://localhost:3000'
         RAILS_ENV: test
         PGHOST: localhost
-        PGUSER: postgres
+        PGUSER: myapp
       run: |
         cd server && bin/rails db:setup
     - name: Install dependencies
