@@ -6,6 +6,14 @@ on:
     branches: [ main, master ]
 jobs:
   test:
+    services:
+      postgres:
+        image: postgres:12.7
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: mentoring_project_server_dev
+          POSTGRES_PASSWORD: ""
+        ports: ["5432:5432"]
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
