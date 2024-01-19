@@ -11,7 +11,7 @@ jobs:
         image: postgres:12.7
         env:
           POSTGRES_USER: postgres
-          POSTGRES_DB: mentoring_project_server_dev
+          POSTGRES_DB: mentoring_project_server_test
           POSTGRES_PASSWORD: ""
         ports: ["5432:5432"]
     timeout-minutes: 60
@@ -26,6 +26,13 @@ jobs:
       with:
         ruby-version: '3.2.2' # Not needed with a .ruby-version file
         bundler-cache: true
+    - name: Setup test database
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: postgres
+        run: |
+          bin/rails db:setup
     - name: Install dependencies
       run: npm install -g yarn && yarn   
     - name: Install Playwright Browsers
