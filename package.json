@@ -8,7 +8,7 @@
     "e2e": "npx playwright test --ui",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
     "test": "concurrently \"yarn client\" \"yarn server-test\"",
-    "server-test": "cd ./server && RAILS_ENV=test rails server -p=3001"
+    "server-test": "cd ./server && RAILS_ENV=test bin/rails server -p=3001"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
