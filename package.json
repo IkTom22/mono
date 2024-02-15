@@ -6,7 +6,9 @@
     "client": "yarn --cwd ./client dev",
     "server": "cd ./server && rails server -p=3001",
     "e2e": "npx playwright test --ui",
-    "dev": "concurrently \"yarn client\" \"yarn server\""
+    "dev": "concurrently \"yarn client\" \"yarn server\"",
+    "test": "concurrently \"yarn client\" \"yarn server-test\"",
+    "server-test": "cd ./server && RAILS_ENV=test rails server -p=3001"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
