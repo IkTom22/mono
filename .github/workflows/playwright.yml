@@ -92,7 +92,7 @@ jobs:
         PGHOST: localhost
         PGUSER: myapp
       run: |
-        cd server && bin/rails db:setup
+        cd server && bin/rails db:setup && bin/rails db:seed
     - name: Install dependencies 
       run: npm install -g yarn && yarn && cd ./client && yarn 
     - name: Install Playwright Browsers
