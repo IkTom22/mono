@@ -101,8 +101,8 @@ jobs:
       run: sleep 10
     - name: Run Playwright tests
       run: yarn playwright test
-      env:
-        DATABASE_URL: "postgres://myapp:postgres@localhost/mentoring_project_server_test"
+      # env:
+      #   DATABASE_URL: "postgres://myapp:postgres@localhost/mentoring_project_server_test"
     - uses: actions/upload-artifact@v3
       if: always()
       with:
