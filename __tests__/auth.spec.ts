@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 test('can login', async ({ page }) => {
+  // Subscribe to 'request' and 'response' events.
+  page.on('request', request => console.log('>>', request.method(), request.url()));
+  page.on('response', response => console.log('<<', response.status(), response.url()));
+
     await page.goto('http://localhost:3000/login');
     // Expect a title "to contain" a substring.
     // await expect(page).toHaveTitle(/The Impact Directory/);

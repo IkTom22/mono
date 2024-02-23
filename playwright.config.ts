@@ -15,6 +15,7 @@ if(process.env.CI){
   dotenv.config({ path: path.resolve(__dirname, '.env.test') });
 }
 export default defineConfig({
+  timeout: 10 * 1000,
   testDir: './__tests__',
   testMatch: '**/*.spec.ts',
   /* Run tests in files in parallel */
