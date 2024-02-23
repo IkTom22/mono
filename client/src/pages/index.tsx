@@ -16,6 +16,7 @@ const listingNum = dummyData.length
 
 export default function Home() {
   console.log(listingNum)
+  console.log('hello')
   const reminder = listingNum % 3
   const displayNum = Math.floor(listingNum/3)
   let firstCol = reminder !==0  ? displayNum + 1 : displayNum
