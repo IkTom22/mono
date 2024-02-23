@@ -96,7 +96,9 @@ jobs:
     - name: Start Rails
       env:
         CLIENT_URL: 'http://localhost:3000'  
-      run: cd ./server && RAILS_ENV=test bin/rails server -p=3001
+      run: cd ./server && RAILS_ENV=test bin/rails server -p=3001 &
+    - name: Wait for server to start
+      run: sleep 10  
     - name: Login via Curl
       run: curl -v -X POST "localhost:3001/users/sign_in?email=test@test.com&password=test123"  
     # - name: Install dependencies 
