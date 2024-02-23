@@ -94,6 +94,8 @@ jobs:
       run: |
         cd server && bin/rails db:setup && bin/rails db:seed
     - name: Start Rails
+      env:
+        CLIENT_URL: 'http://localhost:3000'  
       run: cd ./server && RAILS_ENV=test bin/rails server -p=3001
     - name: Login via Curl
       run: curl -v -X POST "localhost:3001/users/sign_in?email=test@test.com&password=test123"  
