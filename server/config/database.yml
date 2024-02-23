@@ -58,6 +58,8 @@ test:
   database: mentoring_project_server_test
   username: myapp
   password: postgres
+  port: 5432
+  host: localhost
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
