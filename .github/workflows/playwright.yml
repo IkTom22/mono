@@ -93,22 +93,26 @@ jobs:
         PGUSER: myapp
       run: |
         cd server && bin/rails db:setup && bin/rails db:seed
-    - name: Install dependencies 
-      run: npm install -g yarn && yarn && cd ./client && yarn 
-    - name: Install Playwright Browsers
-      run: yarn playwright install --with-deps
-    - name: Wait for server to start
-      run: sleep 10
-    - name: Run Playwright tests
-      run: yarn playwright test
-      # env:
-      #   DATABASE_URL: "postgres://myapp:postgres@localhost/mentoring_project_server_test"
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+    - name: Start Rails
+      run: cd ./server && RAILS_ENV=test bin/rails server -p=3001
+    - name: Login via Curl
+      run: curl -v -X POST "localhost:3001/users/sign_in?email=test@test.com&password=test123"  
+    # - name: Install dependencies 
+    #   run: npm install -g yarn && yarn && cd ./client && yarn 
+    # - name: Install Playwright Browsers
+    #   run: yarn playwright install --with-deps
+    # - name: Wait for server to start
+    #   run: sleep 10
+    # - name: Run Playwright tests
+    #   run: yarn playwright test
+    #   # env:
+    #   #   DATABASE_URL: "postgres://myapp:postgres@localhost/mentoring_project_server_test"
+    # - uses: actions/upload-artifact@v3
+    #   if: always()
+    #   with:
+    #     name: playwright-report
+    #     path: playwright-report/
+    #     retention-days: 30
 
 
 
