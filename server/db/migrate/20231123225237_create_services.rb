@@ -7,3 +7,4 @@ class CreateServices < ActiveRecord::Migration[7.1]
     end
   end
 end
+

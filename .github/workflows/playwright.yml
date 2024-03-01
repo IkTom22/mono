@@ -95,7 +95,7 @@ jobs:
         cd server && bin/rails db:setup && bin/rails db:seed
     # - name: Start Rails
     #   env:
-    #     CLIENT_URL: 'http://localhost:3000'  
+    #     CLIENT_URL: 'http://localhost:3000'   
     #   run: cd ./server && RAILS_ENV=test bin/rails server -p=3001 &
     # - name: Wait for server to start
     #   run: sleep 10  
