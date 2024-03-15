@@ -12,6 +12,14 @@ class Users::SessionsController < Devise::SessionsController
   # def create
   #   super
   # end
+  def check_user
+    if user_signed_in?
+      render json: { logged_in: true }
+    else
+      render json: { logged_in: false }
+    end
+  end
+
   def create
     user = User.find_by(email: params[:email])
     if user && user.valid_password?(params[:password])
