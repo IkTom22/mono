@@ -11,6 +11,7 @@ import {
 } from '../../data/dummy';
 import HeroImage from '../../public/HeroImage.png'
 import Navbar from '@/components/Navbar';
+import { Listing } from '@/types/listing';
 
 const listingNum = dummyData.length
 
@@ -22,9 +23,10 @@ export default function Home() {
   let firstCol = reminder !==0  ? displayNum + 1 : displayNum
   let secondCol = reminder ===2 ? displayNum +1: displayNum 
   let thirdCol = displayNum
+  const [listingData, setListingData] = useState<Listing[]>([])
   console.log(firstCol, secondCol, thirdCol)
   useEffect(() =>{
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/services`, {credentials: 'include',})
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/listings`)
     .then((response) =>{
       if(response.ok){
         return response.json()
@@ -32,7 +34,7 @@ export default function Home() {
         throw new Error("Unathorized")
       }
     })
-    .then(data =>console.log(data))
+    .then((data:Listing[]) =>setListingData(data))
     .catch(err =>console.error(err))
   },[])
  
@@ -106,7 +108,7 @@ export default function Home() {
       <section className='w-screen flex justify-center pt-[88px]'>
         <div className='flex justify-between w-desktop'>
           <div className='flex flex-col gap-8'>
-            {dummyData.filter((d, index) => index < firstCol ).map(d => {
+            {listingData.filter((d, index) => index < firstCol ).map(d => {
               return(
               <Fragment key={d.id}>
                 <DirectoryCard 
@@ -117,7 +119,7 @@ export default function Home() {
 
           </div>
           <div className='flex flex-col gap-8'>
-            {dummyData.filter((d, index)=> index >= firstCol   && index < firstCol + secondCol ).map(d => {
+            {listingData.filter((d, index)=> index >= firstCol   && index < firstCol + secondCol ).map(d => {
               return(
               <Fragment key={d.name}>
                 <DirectoryCard 
@@ -127,7 +129,7 @@ export default function Home() {
             )})}  
           </div>
           <div className='flex flex-col gap-8'>
-            {dummyData.filter((d, index)=> index >= firstCol + secondCol  ).map(d => {
+            {listingData.filter((d, index)=> index >= firstCol + secondCol  ).map(d => {
               return(
               <Fragment key={d.name}>
                 <DirectoryCard 

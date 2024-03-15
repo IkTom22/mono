@@ -27,5 +27,4 @@ Service.create(name: 'Service 2')
 User.create({email: "test@test.com", password:"test123"})
 15.times do 
     Listing.create({name: Faker::Company.name, url: Faker::Internet.url, description: Faker::Company.catch_phrase})
-
 end
