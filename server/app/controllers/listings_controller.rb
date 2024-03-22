@@ -4,10 +4,15 @@ class ListingsController < ApplicationController
   # GET /listings
   def index
     @listings = Listing.all
-
-    render json: @listings
+    # logged in?
+    if user_signed_in?
+      render json: @listings
+    else
+      @publicListings = @listings.map { |listing| listing.attributes.except("url") }  
+      render json: @publicListings
+    end
   end
-
+  
   # GET /listings/1
   def show
     render json: @listing
