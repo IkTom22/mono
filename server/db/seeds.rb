@@ -24,6 +24,15 @@ Faker::ProgrammingLanguage.name #=> "Ruby"
 
 Service.create(name: 'Service 1')
 Service.create(name: 'Service 2')
+Category.create(name:'Category 1')
+Category.create(name:'Category 2')
+Category.create(name:'Category 3')
+ImpactArea.create(name:'ImpactArea 1')
+ImpactArea.create(name:'ImpactArea 2')
+ImpactArea.create(name:'ImpactArea 3')
+ServiceArea.create(name:'ServiceArea 1')
+ServiceArea.create(name:'ServiceArea 2')
+ServiceArea.create(name:'ServiceArea 3')
 User.create({email: "test@test.com", password:"test123"})
 15.times do 
     Listing.create({name: Faker::Company.name, url: Faker::Internet.url, description: Faker::Company.catch_phrase})
