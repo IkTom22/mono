@@ -5,23 +5,18 @@ import { Listing } from '@/types/listing';
 
 // @ts-ignore
 export default function DirectoryCard({ data }: { data: Listing }) {
-  const { description, name } = data;
+  const { description, name, url, img } = data;
   return (
     <div className="flex flex-col p-[18px] gap-8 w-[380px] border-grey hover:border-main-blue border-2 card">
       <div className="flex gap-4 items-center">
-        {/* <Image 
-            src={img} 
-            alt={`${name} image`} 
-            height={90} 
-            width={90}
-        /> */}
-        {/* <Link
+        <Image src={img} alt={`${name} image`} height={90} width={90} />
+        <Link
           href={url}
           target="_blank"
           className="text-[22px] text-main-blue card_link"
         >
           {name}
-        </Link> */}
+        </Link>
       </div>
       <div className="flex flex-col gap-2">
         <div>

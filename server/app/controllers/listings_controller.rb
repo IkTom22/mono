@@ -8,7 +8,7 @@ class ListingsController < ApplicationController
     if user_signed_in?
       render json: @listings
     else
-      @publicListings = @listings.map { |listing| listing.attributes.except("url") }  
+      @publicListings = @listings.map { |listing| listing.attributes.except("bio") }  
       render json: @publicListings
     end
   end
