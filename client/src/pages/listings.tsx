@@ -1,7 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { Listing } from '@/types/listing';
 import NavbarListing from '../components/NavbarListing';
+import ListCard from '@/components/ListCard';
 
 export default function Listings() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,6 +31,7 @@ export default function Listings() {
         credentials: 'include',
       });
       const fetchedListings = await res.json();
+      console.log('give me the listing', fetchedListings);
       setListings(fetchedListings);
     }
     if (isLoggedIn) {
@@ -36,6 +39,7 @@ export default function Listings() {
     }
   }, [isLoggedIn]);
   console.log(listings);
+
   return (
     <>
       <NavbarListing />
@@ -52,16 +56,14 @@ export default function Listings() {
             <span>159 matched from 159 services</span>
           </div>
 
-          <div className="w-full p-16 flex ">
-            <div className="w-1/2">
-              <h2>Title</h2>
-              <p>description</p>
-              <div>location</div>
-            </div>
-            <div className="w-1/2">
-              <h4> company's name</h4>
-              <div>desscription</div>
-            </div>
+          <div className="w-full ">
+            {listings.map((list: Listing) => {
+              return (
+                <div key={list.id}>
+                  <ListCard list={list} />
+                </div>
+              );
+            })}
           </div>
         </div>
       </main>

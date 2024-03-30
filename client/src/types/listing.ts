@@ -6,4 +6,8 @@ export type Listing = {
   updated_at: string;
   url: string;
   img: string;
+  bio: string;
+  'category-id': number;
+  impact_area_id: number;
+  service_area_id: number;
 };
