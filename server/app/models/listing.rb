@@ -1,7 +1,7 @@
 
 class Listing < ApplicationRecord
-    belongs_to :category
-    belongs_to :impact_area
-    belongs_to :service_area
+    has_and_belongs_to_many :categories
+    has_and_belongs_to_many :impact_areas
+    has_and_belongs_to_many :service_areas
 end
   
