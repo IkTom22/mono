@@ -37,40 +37,55 @@ User.create({email: "test@test.com", password:"test123"})
 
 # ------CHATGPT SUGGESTS-----
 # Seed Categories
-categories = ['Category 1', 'Category 2', 'Category 3']
+categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5']
 categories.each do |category_name|
   Category.find_or_create_by(name: category_name)
 end
 
 # Seed ImpactAreas
-impact_areas = ['ImpactArea 1', 'ImpactArea 2', 'ImpactArea 3']
+impact_areas = ['ImpactArea 1', 'ImpactArea 2', 'ImpactArea 3', 'ImpactArea 4', 'ImpactArea 5' ]
 impact_areas.each do |impact_area_name|
   ImpactArea.find_or_create_by(name: impact_area_name)
 end
 
 # Seed ServiceAreas
-service_areas = ['ServiceArea 1', 'ServiceArea 2', 'ServiceArea 3']
+service_areas = ['ServiceArea 1', 'ServiceArea 2', 'ServiceArea 3', 'ServiceArea 4','ServiceArea 5']
 service_areas.each do |service_area_name|
   ServiceArea.find_or_create_by(name: service_area_name)
 end
 
 # Seed Listings with associations
-15.times do 
-  category = Category.all.sample
-  impact_area = ImpactArea.all.sample
-  service_area = ServiceArea.all.sample
+# 15.times do 
+#   category = Category.all.sample
+#   impact_area = ImpactArea.all.sample
+#   service_area = ServiceArea.all.sample
 
-  Listing.create({
+#   Listing.create({
+#     name: Faker::Company.name, 
+#     url: Faker::Internet.url, 
+#     description: Faker::Company.catch_phrase,
+#     bio: Faker::Company.profession,
+#     img: Faker::Company.logo,
+#     category: category,
+#     impact_area: impact_area,
+#     service_area: service_area
+#   })
+# end
+15.times do 
+  listing = Listing.create({
     name: Faker::Company.name, 
     url: Faker::Internet.url, 
     description: Faker::Company.catch_phrase,
     bio: Faker::Company.profession,
-    img: Faker::Company.logo,
-    category: category,
-    impact_area: impact_area,
-    service_area: service_area
+    img: Faker::Company.logo
   })
+  listing.categories << Category.all.sample(2)
+  listing.impact_areas << ImpactArea.all.sample(3)
+  listing.service_areas << ServiceArea.all.sample(2)
 end
+
+
+
 # 15.times do 
 #     Listing.create({
 #         name: Faker::Company.name, 
