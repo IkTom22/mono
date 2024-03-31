@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_30_202754) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_31_000112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,10 +20,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_202754) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "categories_listings", id: false, force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id", "listing_id"], name: "index_categories_listings_on_category_id_and_listing_id"
+    t.index ["listing_id", "category_id"], name: "index_categories_listings_on_listing_id_and_category_id"
+  end
+
   create_table "impact_areas", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "impact_areas_listings", id: false, force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "impact_area_id", null: false
+    t.index ["impact_area_id", "listing_id"], name: "index_impact_areas_listings_on_impact_area_id_and_listing_id"
+    t.index ["listing_id", "impact_area_id"], name: "index_impact_areas_listings_on_listing_id_and_impact_area_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -40,6 +54,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_202754) do
     t.index ["category_id"], name: "index_listings_on_category_id"
     t.index ["impact_area_id"], name: "index_listings_on_impact_area_id"
     t.index ["service_area_id"], name: "index_listings_on_service_area_id"
+  end
+
+  create_table "listings_service_areas", id: false, force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "service_area_id", null: false
+    t.index ["listing_id", "service_area_id"], name: "index_listings_service_areas_on_listing_id_and_service_area_id"
+    t.index ["service_area_id", "listing_id"], name: "index_listings_service_areas_on_service_area_id_and_listing_id"
   end
 
   create_table "service_areas", force: :cascade do |t|
