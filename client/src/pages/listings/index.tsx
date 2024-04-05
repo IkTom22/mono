@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Listing } from '@/types/listing';
-import NavbarListing from '../components/NavbarListing';
+import NavbarListing from '../../components/NavbarListing';
 import ListCard from '@/components/ListCard';
 
 export default function Listings() {
