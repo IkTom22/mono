@@ -71,48 +71,29 @@ end
 #     service_area: service_area
 #   })
 # end
+10.times do
+  organisation = Organisation.create({
+    name: Faker::Company.name, 
+    description: Faker::Company.catch_phrase,
+    img_url: Faker::Company.logo
+  })
+end  
+
 15.times do 
   listing = Listing.create({
     name: Faker::Company.name, 
     url: Faker::Internet.url, 
     description: Faker::Company.catch_phrase,
     bio: Faker::Company.profession,
-    img: Faker::Company.logo
+    img: Faker::Company.logo,
+    organisation_id: Organisation.pluck(:id).sample
   })
+  # puts listing
   listing.categories << Category.all.sample(2)
   listing.impact_areas << ImpactArea.all.sample(3)
   listing.service_areas << ServiceArea.all.sample(2)
 end
 
-
-
-# 15.times do 
-#     Listing.create({
-#         name: Faker::Company.name, 
-#         url: Faker::Internet.url, 
-#         description: Faker::Company.catch_phrase,
-#         bio: Faker::Company.profession,
-#         img: Faker::Company.logo,
-#         # category: category,
-#         # impact_area: impact_area,
-#         # service_area: service_area
-#     })
-# end
-# 15.times do |i|
-#     listing = Listing.new({
-#       name: Faker::Company.name, 
-#       url: Faker::Internet.url, 
-#       description: Faker::Company.catch_phrase,
-#       bio: Faker::Company.profession,
-#       img: Faker::Company.logo,
-#     })
-    
-#     if listing.save
-#       puts "Listing #{i + 1} created successfully"
-#     else
-#       puts "Error creating listing #{i + 1}: #{listing.errors.full_messages.to_sentence}"
-#     end
-#   end
   
 
 

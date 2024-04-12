@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_05_030431) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_12_045414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_05_030431) do
     t.datetime "updated_at", null: false
     t.string "img"
     t.string "bio"
+    t.bigint "organisation_id"
+    t.index ["organisation_id"], name: "index_listings_on_organisation_id"
   end
 
   create_table "listings_service_areas", id: false, force: :cascade do |t|
@@ -55,6 +57,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_05_030431) do
     t.bigint "service_area_id", null: false
     t.index ["listing_id", "service_area_id"], name: "index_listings_service_areas_on_listing_id_and_service_area_id"
     t.index ["service_area_id", "listing_id"], name: "index_listings_service_areas_on_service_area_id_and_listing_id"
+  end
+
+  create_table "organisations", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "img_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "service_areas", force: :cascade do |t|
@@ -81,4 +91,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_05_030431) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "listings", "organisations"
 end
