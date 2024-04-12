@@ -1,3 +1,7 @@
+import { category } from './category';
+import { impact_area } from './impact_area';
+import { service_area } from './service_area';
+
 export type Listing = {
   id: number;
   name: string;
@@ -7,7 +11,7 @@ export type Listing = {
   url: string;
   img: string;
   bio: string;
-  'category-id': number;
-  impact_area_id: number;
-  service_area_id: number;
+  categories: Array<category>;
+  impact_areas: Array<impact_area>;
+  service_areas: Array<service_area>;
 };

@@ -44,7 +44,7 @@ export default function Listings() {
     <>
       <NavbarListing />
       <main className="w-full flex justify-center">
-        <div className="w-[1200px]">
+        <div className="max-w-[1200px] w-[1200px]">
           {/* Location /Service Category and matched result section */}
           <div className="w-full flex gap-2 items-center text-xl">
             <button className="rounded-full px-4 py-2.5 border-solid border-2 border-[#BBBDBF] text-[#BBBDBF]">
@@ -56,7 +56,7 @@ export default function Listings() {
             <span>159 matched from 159 services</span>
           </div>
 
-          <div className="w-full ">
+          <div className="w-full h-[494px]">
             {listings.map((list: Listing) => {
               return (
                 <div key={list.id}>
