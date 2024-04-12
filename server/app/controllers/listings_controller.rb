@@ -3,10 +3,10 @@ class ListingsController < ApplicationController
 
   # GET /listings
   def index
-    @listings = Listing.includes(:categories, :impact_areas, :service_areas)
+    @listings = Listing.includes(:categories, :impact_areas, :service_areas, :organisation)
     # logged in?
     if user_signed_in?
-      render json: @listings.as_json(include: [:categories, :impact_areas, :service_areas])
+      render json: @listings.as_json(include: [:categories, :impact_areas, :service_areas, :organisation])
     else
       @publicListings = @listings.map { |listing| listing.attributes.except("bio") }  
       render json: @publicListings
