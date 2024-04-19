@@ -17,7 +17,14 @@ export default function NavListing() {
 
         <div className="flex items-center gap-4 text-lg">
           <ul className="flex gap-4">
-            <li>Saved</li>
+            <li>
+              <Link
+                href="/saved"
+                className="border-2 border-main-blue text-main-blue p-2 px-4 hover:underline"
+              >
+                Saved
+              </Link>
+            </li>
             <li>Settings</li>
           </ul>
           <Link
