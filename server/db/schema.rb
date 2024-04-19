@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_12_045414) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_19_044645) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_12_045414) do
     t.bigint "category_id", null: false
     t.index ["category_id", "listing_id"], name: "index_categories_listings_on_category_id_and_listing_id"
     t.index ["listing_id", "category_id"], name: "index_categories_listings_on_listing_id_and_category_id"
+  end
+
+  create_table "favourite_lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_favourite_lists_on_user_id"
+  end
+
+  create_table "favourite_lists_listings", id: false, force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "favourite_list_id", null: false
+    t.index ["favourite_list_id", "listing_id"], name: "idx_on_favourite_list_id_listing_id_d587cb0254"
+    t.index ["listing_id", "favourite_list_id"], name: "idx_on_listing_id_favourite_list_id_f9cf6ae298"
   end
 
   create_table "impact_areas", force: :cascade do |t|
@@ -91,5 +106,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_12_045414) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "favourite_lists", "users"
   add_foreign_key "listings", "organisations"
 end
