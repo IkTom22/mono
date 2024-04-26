@@ -7,6 +7,12 @@ function Saved() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/favourite_lists`, {
       method: 'POST',
       credentials: 'include',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+      }),
     })
       .then((response) => {
         if (response.ok) {

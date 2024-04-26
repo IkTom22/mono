@@ -13,7 +13,8 @@ class FavouriteListsController < ApplicationController
   # POST /favourite_lists
   def create
     if user_signed_in?
-        @favourite_list = FavouriteList.new(favourite_list_params)
+        @user = current_user
+        @favourite_list  = FavouriteList.new(favourite_list_params.merge(user: @user))
         if @favourite_list.save
             render json: @favourite_list, status: :created, location: @favourite_list
         else
@@ -22,7 +23,6 @@ class FavouriteListsController < ApplicationController
     else
         render json: { error: 'Forbidden' }, status: :forbidden
     end
-    
   end
 
   private
@@ -33,7 +33,8 @@ class FavouriteListsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def favourite_list_params
-      params.fetch(:favourite_list, {})
+      # params.fetch(:favourite_list, {})
+      params.require(:favourite_list).permit(:name)
     end
 
 end
