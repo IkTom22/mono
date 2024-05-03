@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetStaticPaths } from 'next';
 import {
@@ -11,9 +11,44 @@ import {
 } from '@/components/ui/Dialog';
 
 function ListingPage(props: any) {
+  const [favouriteLists, setFavouriteLists] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   console.log('Is this the props we need ...? ', props);
   const router = useRouter();
   console.log(router.query);
+  useEffect(() => {
+    async function checkUser() {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/check_user`, {
+        credentials: 'include',
+      });
+      const userCheck = await res.json();
+      if (userCheck.logged_in) {
+        setIsLoggedIn(true);
+      } else {
+        console.log(userCheck);
+        router.push('/');
+      }
+    }
+    checkUser();
+  }, []);
+  useEffect(() => {
+    async function getFavouriteLists() {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/favourite_lists`,
+        {
+          credentials: 'include',
+        },
+      );
+      const fetchedFavouriteLists = await res.json();
+      console.log('give me the listing', fetchedFavouriteLists);
+      setFavouriteLists(fetchedFavouriteLists);
+    }
+    if (isLoggedIn) {
+      getFavouriteLists();
+    }
+  }, [isLoggedIn]);
+
+  // console.log(favouriteLists);
   return (
     <div>
       <h1>{props.listing.name}</h1>
@@ -21,12 +56,16 @@ function ListingPage(props: any) {
         <DialogTrigger>Add to favourite</DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle>Add to favourite</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Choose a list to save this listing to
             </DialogDescription>
           </DialogHeader>
+          <div>
+            {favouriteLists.map((list) => {
+              return <button onClick={() => {}}>{list.name}</button>;
+            })}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
