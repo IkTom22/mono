@@ -70,7 +70,13 @@ function Saved() {
       <button onClick={handleCreate}>Create</button>
       <div>
         {favouriteLists.map((fav) => (
-          <p>{fav.name}</p>
+          <div className="flex gap-3">
+            <p className="font-semibold">{fav.name}</p>
+            <p>listings: </p>
+            {fav.listings.map((listing) => {
+              return <p>{listing.name}</p>;
+            })}
+          </div>
         ))}
       </div>
     </div>
