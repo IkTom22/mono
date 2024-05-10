@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 function Saved() {
   const [name, setName] = useState('');
   const [favouriteLists, setFavouriteLists] = useState([]);
@@ -74,7 +75,9 @@ function Saved() {
             <p className="font-semibold">{fav.name}</p>
             <p>listings: </p>
             {fav.listings.map((listing) => {
-              return <p>{listing.name}</p>;
+              return (
+                <Link href={`/listings/${listing.id}`}>{listing.name}</Link>
+              );
             })}
           </div>
         ))}
