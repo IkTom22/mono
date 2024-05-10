@@ -63,7 +63,30 @@ function ListingPage(props: any) {
           </DialogHeader>
           <div>
             {favouriteLists.map((list) => {
-              return <button onClick={() => {}}>{list.name}</button>;
+              console.log('list ', list);
+              console.log('props.liting ', props.listing);
+              return (
+                <button
+                  onClick={() => {
+                    fetch(
+                      `${process.env.NEXT_PUBLIC_API_URL}/favourite_lists_listings`,
+                      {
+                        method: 'POST',
+                        credentials: 'include',
+                        headers: {
+                          'content-type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          favouriteListId: list.id,
+                          listingId: props.listing.id,
+                        }),
+                      },
+                    );
+                  }}
+                >
+                  {list.name}
+                </button>
+              );
             })}
           </div>
         </DialogContent>
