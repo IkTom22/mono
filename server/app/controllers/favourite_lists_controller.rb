@@ -38,6 +38,19 @@ class FavouriteListsController < ApplicationController
       render json: { error: 'Failed to remove listing' }, status: :unprocessable_entity
     end
   end
+  def remove_listing_from_all_lists
+    listing = Listing.find(params[:listing_id])
+    # favourite_list_listing = FavouriteListsListing.find_by(favourite_list_id: favourite_list.id, listing_id: listing.id)
+    # puts "THIS IS THE RESULT:  #{favourite_list_listing.listing_id}"
+    # Assuming FavouriteList has a `has_many :listings, through: :favourite_list_listings` association
+    # if favourite_list_listing
+      sql = "DELETE FROM favourite_lists_listings WHERE listing_id = #{listing.id}"
+      ActiveRecord::Base.connection.execute(sql)
+      render json: { message: 'Listing removed successfully' }, status: :ok
+    # else
+      # render json: { error: 'Failed to remove listing' }, status: :unprocessable_entity
+    # end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     # def set_listingj

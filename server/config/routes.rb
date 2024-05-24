@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   resources :favourite_lists do
     delete 'remove_listing/:listing_id', to: 'favourite_lists#remove_listing', on: :member
   end
-
+  delete 'remove_listing_from_all_lists/:listing_id', to: 'favourite_lists#remove_listing_from_all_lists'
 end
