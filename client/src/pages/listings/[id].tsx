@@ -9,7 +9,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/Dialog';
-
+function handleDelete(listingId) {
+  fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/remove_listing_from_all_lists/${listingId}`,
+    {
+      method: 'DELETE',
+      credentials: 'include',
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Something went wrong');
+      }
+    })
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
+}
 function ListingPage(props: any) {
   const [favouriteLists, setFavouriteLists] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -62,7 +79,9 @@ function ListingPage(props: any) {
     <div>
       <h1>{props.listing.name}</h1>
       {isFavourited ? (
-        <button>Delete from favourite</button>
+        <button onClick={() => handleDelete(props.listing.id)}>
+          Delete from favourite
+        </button>
       ) : (
         <Dialog>
           <DialogTrigger>Add to favourite</DialogTrigger>
