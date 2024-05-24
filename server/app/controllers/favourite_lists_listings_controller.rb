@@ -27,6 +27,20 @@ class FavouriteListsListingsController < ApplicationController
     end
   end
 
+  def destroy
+    if user_signed_in?
+      @user = current_user
+      @favourite_lists_listing  = FavouriteListsListing.find(params[:id])
+      if @favourite_lists_listing.destroy!
+          render json: @favourite_lists_listing , status: :created
+      else
+          render json: @favourite_lists_listing.errors, status: :unprocessable_entity
+      end
+    else
+      render json: { error: 'Forbidden' }, status: :forbidden
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     # def set_listing

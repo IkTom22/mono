@@ -13,6 +13,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :favourite_lists
+  # resources :favourite_lists
   resources :favourite_lists_listings
+  # config/routes.rb
+  resources :favourite_lists do
+    delete 'remove_listing/:listing_id', to: 'favourite_lists#remove_listing', on: :member
+  end
+
 end

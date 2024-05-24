@@ -13,7 +13,16 @@ import {
 function ListingPage(props: any) {
   const [favouriteLists, setFavouriteLists] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   console.log('Is this the props we need ...? ', props);
+  console.log('favouriteLits:', favouriteLists);
+  // const isFavourited = true;
+  const isFavourited = favouriteLists.some((favouriteList) =>
+    favouriteList.listings.some(
+      (favourite) => favourite.id === props.listing.id,
+    ),
+  );
+
   const router = useRouter();
   console.log(router.query);
   useEffect(() => {
@@ -52,45 +61,49 @@ function ListingPage(props: any) {
   return (
     <div>
       <h1>{props.listing.name}</h1>
-      <Dialog>
-        <DialogTrigger>Add to favourite</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add to favourite</DialogTitle>
-            <DialogDescription>
-              Choose a list to save this listing to
-            </DialogDescription>
-          </DialogHeader>
-          <div>
-            {favouriteLists.map((list) => {
-              console.log('list ', list);
-              console.log('props.liting ', props.listing);
-              return (
-                <button
-                  onClick={() => {
-                    fetch(
-                      `${process.env.NEXT_PUBLIC_API_URL}/favourite_lists_listings`,
-                      {
-                        method: 'POST',
-                        credentials: 'include',
-                        headers: {
-                          'content-type': 'application/json',
+      {isFavourited ? (
+        <button>Delete from favourite</button>
+      ) : (
+        <Dialog>
+          <DialogTrigger>Add to favourite</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add to favourite</DialogTitle>
+              <DialogDescription>
+                Choose a list to save this listing to
+              </DialogDescription>
+            </DialogHeader>
+            <div>
+              {favouriteLists.map((list) => {
+                console.log('list ', list);
+                console.log('props.liting ', props.listing);
+                return (
+                  <button
+                    onClick={() => {
+                      fetch(
+                        `${process.env.NEXT_PUBLIC_API_URL}/favourite_lists_listings`,
+                        {
+                          method: 'POST',
+                          credentials: 'include',
+                          headers: {
+                            'content-type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            favouriteListId: list.id,
+                            listingId: props.listing.id,
+                          }),
                         },
-                        body: JSON.stringify({
-                          favouriteListId: list.id,
-                          listingId: props.listing.id,
-                        }),
-                      },
-                    );
-                  }}
-                >
-                  {list.name}
-                </button>
-              );
-            })}
-          </div>
-        </DialogContent>
-      </Dialog>
+                      );
+                    }}
+                  >
+                    {list.name}
+                  </button>
+                );
+              })}
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

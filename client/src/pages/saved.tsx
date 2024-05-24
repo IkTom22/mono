@@ -61,6 +61,25 @@ function Saved() {
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
   }
+  function handleDelete(favouriteListId, listingId) {
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/favourite_lists/${favouriteListId}/remove_listing/${listingId}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  }
+  console.log(favouriteLists);
   return (
     <div>
       <input
@@ -74,11 +93,21 @@ function Saved() {
           <div className="flex gap-3">
             <p className="font-semibold">{fav.name}</p>
             <p>listings: </p>
-            {fav.listings.map((listing) => {
-              return (
-                <Link href={`/listings/${listing.id}`}>{listing.name}</Link>
-              );
-            })}
+            <div className="flex flex-col ">
+              {fav.listings.map((listing) => {
+                return (
+                  <div className="flex gap-2">
+                    <Link href={`/listings/${listing.id}`}>{listing.name}</Link>
+                    <button
+                      className="btn"
+                      onClick={() => handleDelete(fav.id, listing.id)}
+                    >
+                      x
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         ))}
       </div>
